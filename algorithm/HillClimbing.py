@@ -48,7 +48,7 @@ class HillClimbing(Algorithm):
         s1 = [self.swap_operator(solution) for _ in range(10)]
         s2 = [self.move_operator(solution) for _ in range(30)]
         s3 = [self.deadline_based_swap(solution) for _ in range(20)]
-        s4 = [self.adjancet_swap(solution) for _ in range(10)]
+        s4 = [self.adjacent_swap(solution) for _ in range(10)]
 
         def best_improving(neighbours: list[Solution | None]) -> Solution | None:
             best_solution = None

@@ -3,6 +3,7 @@ import json
 import os
 
 from algorithm.HillClimbing import Tactic, HillClimbing
+from algorithm.SimulatedAnnealing import SimulatedAnnealing
 from problem.problem import Problem
 
 if __name__ == "__main__":
@@ -31,6 +32,12 @@ if __name__ == "__main__":
     result = hill_climbing.solve()
 
     print("Hill Climbing")
+    print(f"Solution: {result()}")
+    print(f"Cost: {problem.calculate_cost_of_solution(result)}")
+
+    simulated_annealing = SimulatedAnnealing(problem, 500, 0.995, 25, 3, 40)
+    result = simulated_annealing.solve()
+    print("Simulated Annealing")
     print(f"Solution: {result()}")
     print(f"Cost: {problem.calculate_cost_of_solution(result)}")
 

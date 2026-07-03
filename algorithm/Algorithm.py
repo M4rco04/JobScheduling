@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
 import random
-from collections import defaultdict
 
 from problem.problem import Problem
 from problem.solution import Solution
@@ -196,7 +195,7 @@ class Algorithm(ABC):
         return new_solution if self.problem.is_solution_valid(new_solution) else None
 
 
-    def adjancet_swap(self, solution: Solution) -> Solution | None:
+    def adjacent_swap(self, solution: Solution) -> Solution | None:
         tmp_solution = solution().copy()
 
         indices = [i for i, x in enumerate(tmp_solution) if x is not None]
