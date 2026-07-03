@@ -80,9 +80,14 @@ class SimulatedAnnealing(Algorithm):
         return best_solution
 
     def find_neighbour(self, solution: Solution) -> Solution | None:
+        if self.temp > self.temp_initial * 0.4:
+            w = [20, 50, 20, 10]
+        else:
+            w = [10, 5, 45, 40]
+
         operator = random.choices(
             population=[self.swap_operator, self.move_operator, self.deadline_based_swap, self.adjacent_swap],
-            weights=[10, 30, 20, 10],
+            weights=w,
             k=1
         )[0]
 
