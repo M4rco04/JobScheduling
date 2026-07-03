@@ -27,8 +27,10 @@ if __name__ == "__main__":
     problem = Problem(number_of_types, number_of_time_slots, number_of_products, inventory_cost, types, due_time_slots, transition_costs)
     tactic = Tactic(0)
 
-    hill_climbing = HillClimbing(problem, tactic, 2000, 30)
+    hill_climbing = HillClimbing(problem, tactic, 2000, 50)
     result = hill_climbing.solve()
 
-    print(problem.calculate_cost_of_solution(result))
-    print(result())
+    print("Hill Climbing")
+    print(f"Solution: {result()}")
+    print(f"Cost: {problem.calculate_cost_of_solution(result)}")
+

@@ -1,6 +1,6 @@
 import copy
 
-from solution import Solution
+from problem.solution import Solution
 
 class Problem:
     def __init__(self, number_of_types: int, number_of_slots: int, products: int, inventory_cost: int, types: list[int], due_time_slots: list[int], transition_costs: list[list[int]]):
@@ -11,7 +11,6 @@ class Problem:
         self.types: list[int] = types.copy()
         self.due_time_slots: list[int] = due_time_slots.copy()
         self.transition_costs: list[list[int]] = copy.deepcopy(transition_costs)
-
 
     def calculate_cost_of_solution(self, solution: Solution) -> int:
         return self._calculate_transition_costs(solution()) + self._calculate_inventory_costs(solution())
@@ -44,7 +43,7 @@ class Problem:
                 continue
 
             product_id: int = solution[id]
-            delta = self.due_time_slots[product_id] - id - 1
+            delta = self.due_time_slots[product_id] - id
 
             cost += self.inventory_cost * delta
 
@@ -61,10 +60,7 @@ class Problem:
             if product not in positions:
                 return False
 
-            if positions[product] + 1 > deadline:
+            if positions[product] > deadline:
                 return False
 
         return True
-
-
-

@@ -1,0 +1,15 @@
+{
+    "number_of_types": 5,
+    "number_of_time_slots": 10,
+    "number_of_products": 7,
+    "inventory_cost": 10,
+    "types": [0, 1, 1, 2, 3, 4, 4],
+    "due_time_slots": [1, 4, 8, 9, 4, 4, 6],
+    "transition_costs": [
+        [0,78,86,93,120],
+        [165,0,193,213,178],
+        [214,170,0,190,185],
+        [178,177,185,0,196],
+        [201,199,215,190,0]
+    ]
+}
