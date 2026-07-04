@@ -2,8 +2,18 @@ import copy
 
 from problem.solution import Solution
 
+
 class Problem:
-    def __init__(self, number_of_types: int, number_of_slots: int, products: int, inventory_cost: int, types: list[int], due_time_slots: list[int], transition_costs: list[list[int]]):
+    def __init__(
+        self,
+        number_of_types: int,
+        number_of_slots: int,
+        products: int,
+        inventory_cost: int,
+        types: list[int],
+        due_time_slots: list[int],
+        transition_costs: list[list[int]],
+    ):
         self.number_of_types: int = number_of_types
         self.number_of_slots: int = number_of_slots
         self.products: int = products
@@ -13,7 +23,9 @@ class Problem:
         self.transition_costs: list[list[int]] = copy.deepcopy(transition_costs)
 
     def calculate_cost_of_solution(self, solution: Solution) -> int:
-        return self._calculate_transition_costs(solution()) + self._calculate_inventory_costs(solution())
+        return self._calculate_transition_costs(
+            solution()
+        ) + self._calculate_inventory_costs(solution())
 
     def _calculate_transition_costs(self, solution: list[int | None]) -> int:
         cost: int = 0

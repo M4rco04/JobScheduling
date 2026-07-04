@@ -5,9 +5,11 @@ import random
 from problem.problem import Problem
 from problem.solution import Solution
 
+
 class Tactic(Enum):
     BestImproving = 0
     FirstImproving = 1
+
 
 class Algorithm(ABC):
     def __init__(self, problem: Problem):
@@ -21,8 +23,7 @@ class Algorithm(ABC):
         solution = [None] * self.problem.number_of_slots
 
         products = sorted(
-            range(self.problem.products),
-            key=lambda p: self.problem.due_time_slots[p]
+            range(self.problem.products), key=lambda p: self.problem.due_time_slots[p]
         )
 
         for product in products:
@@ -42,7 +43,9 @@ class Algorithm(ABC):
         unscheduled = set(range(self.problem.products))
 
         def is_feasible(jobs_to_check: set, start_slot: int) -> bool:
-            sorted_check = sorted(list(jobs_to_check), key=lambda x: self.problem.due_time_slots[x])
+            sorted_check = sorted(
+                list(jobs_to_check), key=lambda x: self.problem.due_time_slots[x]
+            )
             for i, j in enumerate(sorted_check):
                 if start_slot + i > self.problem.due_time_slots[j]:
                     return False
@@ -56,11 +59,15 @@ class Algorithm(ABC):
             if current_slot > 0 and solution[current_slot - 1] is not None:
                 prev_type = self.problem.types[solution[current_slot - 1]]
 
-            sorted_jobs = sorted(list(unscheduled), key=lambda x: self.problem.due_time_slots[x])
+            sorted_jobs = sorted(
+                list(unscheduled), key=lambda x: self.problem.due_time_slots[x]
+            )
             chosen_job = None
 
             if prev_type is not None:
-                same_type_jobs = [j for j in sorted_jobs if self.problem.types[j] == prev_type]
+                same_type_jobs = [
+                    j for j in sorted_jobs if self.problem.types[j] == prev_type
+                ]
                 for candidate in same_type_jobs:
                     remaining = unscheduled - {candidate}
                     if is_feasible(remaining, current_slot + 1):
@@ -82,7 +89,6 @@ class Algorithm(ABC):
 
         return Solution(solution)
 
-
     def marginal_cost_minimization(self) -> Solution:
         solution = [None] * self.problem.number_of_slots
         unscheduled_jobs = set(range(self.problem.products))
@@ -92,7 +98,7 @@ class Algorithm(ABC):
                 break
 
             best_job = None
-            best_marginal_cost = float('inf')
+            best_marginal_cost = float("inf")
 
             prev_type = None
             for s in range(current_slot - 1, -1, -1):
@@ -100,13 +106,21 @@ class Algorithm(ABC):
                     prev_type = self.problem.types[solution[s]]
                     break
 
-            sorted_candidates = sorted(list(unscheduled_jobs), key=lambda j: self.problem.due_time_slots[j])
+            sorted_candidates = sorted(
+                list(unscheduled_jobs), key=lambda j: self.problem.due_time_slots[j]
+            )
 
             most_urgent_job = sorted_candidates[0]
-            most_urgent_slack = self.problem.due_time_slots[most_urgent_job] - current_slot
+            most_urgent_slack = (
+                self.problem.due_time_slots[most_urgent_job] - current_slot
+            )
 
             if most_urgent_slack <= 0:
-                candidates = [j for j in sorted_candidates if self.problem.due_time_slots[j] - current_slot <= 0]
+                candidates = [
+                    j
+                    for j in sorted_candidates
+                    if self.problem.due_time_slots[j] - current_slot <= 0
+                ]
             else:
                 candidates = sorted_candidates
 
@@ -136,7 +150,6 @@ class Algorithm(ABC):
                 unscheduled_jobs.remove(best_job)
 
         return Solution(solution)
-
 
     def swap_operator(self, solution: Solution) -> Solution | None:
         tmp_solution = solution().copy()
@@ -174,7 +187,9 @@ class Algorithm(ABC):
             deadline = self.problem.due_time_slots[job_id]
             return deadline - i
 
-        early_indices = [i for i in all_indices if tmp[i] is not None and slack(i, tmp[i]) > 0]
+        early_indices = [
+            i for i in all_indices if tmp[i] is not None and slack(i, tmp[i]) > 0
+        ]
 
         if not early_indices:
             a, b = random.sample(all_indices, 2)
@@ -193,7 +208,6 @@ class Algorithm(ABC):
 
         new_solution = Solution(tmp)
         return new_solution if self.problem.is_solution_valid(new_solution) else None
-
 
     def adjacent_swap(self, solution: Solution) -> Solution | None:
         tmp_solution = solution().copy()

@@ -14,8 +14,15 @@ class HillClimbing(Algorithm):
 
     def solve(self) -> Solution:
         current_solution = random.choice(
-            [self.backward_greedy(), self.greedy_type_grouping(), self.marginal_cost_minimization()])
-        current_solution_value = self.problem.calculate_cost_of_solution(current_solution)
+            [
+                self.backward_greedy(),
+                self.greedy_type_grouping(),
+                self.marginal_cost_minimization(),
+            ]
+        )
+        current_solution_value = self.problem.calculate_cost_of_solution(
+            current_solution
+        )
 
         best_solution = current_solution
         best_solution_value = current_solution_value
@@ -28,8 +35,15 @@ class HillClimbing(Algorithm):
                 freeze += 1
                 if freeze >= self.max_freeze:
                     current_solution = random.choice(
-                        [self.backward_greedy(), self.greedy_type_grouping(), self.marginal_cost_minimization()])
-                    current_solution_value = self.problem.calculate_cost_of_solution(current_solution)
+                        [
+                            self.backward_greedy(),
+                            self.greedy_type_grouping(),
+                            self.marginal_cost_minimization(),
+                        ]
+                    )
+                    current_solution_value = self.problem.calculate_cost_of_solution(
+                        current_solution
+                    )
                     freeze = 0
                 continue
 
@@ -42,7 +56,6 @@ class HillClimbing(Algorithm):
                 best_solution_value = current_solution_value
 
         return best_solution
-
 
     def find_neighbour(self, solution_cost: int, solution: Solution) -> Solution | None:
         s1 = [self.swap_operator(solution) for _ in range(10)]
@@ -77,7 +90,6 @@ class HillClimbing(Algorithm):
                     return neighbour
 
             return None
-
 
         match self.tactic:
             case Tactic.BestImproving:
