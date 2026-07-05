@@ -12,9 +12,9 @@ The scheduling problem consists of assigning products to a single production mac
 
 Each product:
 
-- 📦 belongs to a specific **product type**,
-- ⏰ must be completed **no later than its deadline**,
-- 🕒 occupies exactly one time slot.
+- belongs to a specific **product type**,
+- must be completed **no later than its deadline**,
+- occupies exactly one time slot.
 
 The objective is to minimize the total production cost while maintaining a feasible schedule.
 
@@ -26,8 +26,8 @@ The total cost consists of two components:
 
 Completing a product before its deadline generates inventory holding costs.
 
-- ✅ Finishing exactly at the deadline results in zero inventory cost.
-- 📈 The earlier a product is completed, the larger the penalty.
+- Finishing exactly at the deadline results in zero inventory cost.
+- The earlier a product is completed, the larger the penalty.
 
 ### 🔄 Transition Cost (Sequence-Dependent Setup Cost)
 
